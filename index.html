@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script type="text/javascript">
+        function AmountChange(){
+            document.getElementById("txtAmount").value = document.getElementById("amountRange").value;
+        }
+        function YearChange(){
+            document.getElementById("txtYears").value = document.getElementById("yearRange").value;
+        }
+        function RateChange(){
+            document.getElementById("txtRate").value = document.getElementById("rateRange").value;
+        }
+        function CalculateClick(){
+            var P = parseInt(document.getElementById("txtAmount").value);
+            var n = parseInt(document.getElementById("txtYears").value) * 12;
+            var r = parseFloat(document.getElementById("txtRate").value)/12/100;
+            var EMI = P * r * Math.pow(1+r,n) / Math.pow(1+r,n)-1;
+            document.getElementById("result").innerHTML = "Loan amount for every month <b> &#8377;" + Math.round(EMI) + "</b>" + " for " + P;
+        }
+    </script>
+    <style>
+        body{
+            background-color: rgb(149, 174, 249);
+        }
+        h2{
+            font-weight: bolder;
+        }
+       
+    </style>
+</head>
+<body class="container-fluid">
+   
+     <h2>EMI CALCULATOR</h2>
+  
+   <div class="p-4 border border-3  mt-4 rounded rounded-2">
+    <div class="row mt-2 mb-3">
+        <div class="col">
+            Amount You Need <input type="text" id="txtAmount" size="10">
+        </div>
+        <div class="col">
+            For <input type="text" size="2" id="txtYears"> Years
+        </div>
+        <div class="col">
+            Interest Rate <input type="text" size="4" id="txtRate"> %
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <div class="d-flex">
+                <span>&#8377; 50,000</span>
+                <input onchange="AmountChange()" type="range" id="amountRange" min="50000" value="50000" max="1000000" style="width:150px" class="ms-2 me-2 form-range">
+                <span>&#8377; 10,00,000</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-flex">
+                <span> 1</span>
+                <input onchange="YearChange()" type="range" id="yearRange" min="1" max="5" value="1" style="width:150px" class="ms-2 me-2 form-range">
+                <span> 5</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-flex">
+                <span> 10.32% </span>
+                <input onchange="RateChange()" type="range" id="rateRange" min="10.32" max="18.42" step="0.01" value="10.32" style="width:150px" class="ms-2 me-2 form-range">
+                <span> 18.42% </span>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col text-end">
+            <button class="btn btn-primary" onclick="CalculateClick()">Calculate</button>
+        </div>
+    </div>
+   </div>
+   <div class="mt-4">
+      <p id="result" class="text-center mt-4"></p>
+   </div>
+ 
+</body>
+</html>
